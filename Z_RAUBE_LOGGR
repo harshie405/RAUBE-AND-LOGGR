@@ -1,0 +1,625 @@
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Projection View for ZOPS_I_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411    Initial Development         *
+//*  AMIREHA1   29-JAN-2026    1100285388    Added language key as key   *
+//*                                          field                       *
+//*----------------------------------------------------------------------*
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Logistics Handler'
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@VDM.viewType: #BASIC
+
+define root view entity ZOPS_I_LOGGR
+  as select from zmd_loggr as Loggr
+{
+  key loggr              as Loggr,
+  key spras              as spras,
+      zltext             as Zltext,
+      @Semantics.user.createdBy: true
+      createdby          as Createdby,
+      @Semantics.systemDateTime.createdAt: true
+      createdon          as Createdon,
+      @Semantics.user.lastChangedBy: true
+      lastmodifiedby     as Lastmodifiedby,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      local_last_changed as LocalLastChanged,
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_changed       as LastChanged
+
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    :Projection View for ZOPS_I_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411   Initial Development          *
+//*  AMIREHA1   29-JAN-2026    1100285388   Added language key as key    *
+//*                                         field                        *
+//*----------------------------------------------------------------------*
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Storage condition table'
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@VDM.viewType: #BASIC
+define root view entity ZOPS_I_RAUBE
+  as select from zmd_raube as storagecond
+{
+  key raube              as Raube,
+  key spras              as spras,
+      zrbtxt             as Zrbtxt,
+      @Semantics.user.createdBy: true
+      createdby          as Createdby,
+      @Semantics.systemDateTime.createdAt: true
+      createdon          as Createdon,
+      @Semantics.user.lastChangedBy: true
+      lastmodifiedby     as Lastmodifiedby,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      local_last_changed as LocalLastChanged,
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_changed       as LastChanged
+
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Consumption View  for ZOPS_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411   Initial Development          *
+//*  AMIREHA1   29-JAN-2026    1100285388   Added language key as key    *
+//*                                         field                        *
+//*----------------------------------------------------------------------*
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+@EndUserText.label: 'Projection View for ZOPS_I_LOGGR'
+@ObjectModel.semanticKey: [ 'Loggr' ]
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@VDM.viewType: #BASIC
+define root view entity ZOPS_C_LOGGR
+  provider contract transactional_query
+  as projection on ZOPS_I_LOGGR
+{
+  key Loggr,
+  key spras,
+      Zltext,
+      @UI.hidden: true 
+      Createdby,
+      Createdon,    
+      Lastmodifiedby,
+      LastChanged,
+      LocalLastChanged
+  
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : CONSUMPTION View for ZOPS_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411 Initial Development            *
+//*  AMIREHA1   29-JAN-2026    1100285388 Added language key as key      *
+//*                                       field                          *
+//*----------------------------------------------------------------------*
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+@EndUserText.label: 'Projection View for ZOPS_I_RAUBE'
+@ObjectModel.semanticKey: [ 'Raube' ]
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@VDM.viewType: #BASIC
+define root view entity ZOPS_C_RAUBE
+  provider contract transactional_query
+  as projection on ZOPS_I_RAUBE
+{
+  key Raube,
+  key spras,
+      Zrbtxt,      
+      @UI.hidden: true 
+      Createdby,
+      Createdon,    
+      Lastmodifiedby,
+      LastChanged,
+      LocalLastChanged
+
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Behaviour definition for ZOPS_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411  Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388    Added language key as key   *
+//*                                          field                       *
+//*----------------------------------------------------------------------*
+managed implementation in class ZBP_OPS_LOGGR unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZOPS_I_LOGGR alias Loggr
+persistent table zmd_loggr
+draft table zmd_loggr_d
+etag master LocalLastChanged
+lock master total etag LastChanged
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Loggr,spras;
+
+  field ( readonly )
+   LastChanged,
+   LocalLastChanged;
+
+  field ( readonly : update )
+   Loggr;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZMD_LOGGR
+  {
+    Loggr = LOGGR;
+    spras = spras;
+    Zltext = ZLTEXT;
+    CreatedBy = createdby;
+    CreatedOn = createdon;
+    LastModifiedBy = lastmodifiedby;
+    LocalLastChanged = LOCAL_LAST_CHANGED;
+    LastChanged = LAST_CHANGED;
+  }
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Behaviour definition for ZOPS_I_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411  Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388  Added language key as key     *
+//*                                        field                         *
+//*----------------------------------------------------------------------*
+managed implementation in class zbp_CL_RAUBE unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZOPS_I_RAUBE alias storagecond
+persistent table zmd_raube
+draft table zmd_raube_d
+etag master LocalLastChanged
+lock master total etag LastChanged
+authorization master ( global )
+
+{
+  field ( mandatory : create )
+  Raube,spras;
+
+  field ( readonly )
+  LastChanged,
+  LocalLastChanged;
+
+  field ( readonly : update )
+  Raube;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZMD_RAUBE
+  {
+    Raube = RAUBE;
+    spras = spras;
+    Zrbtxt = ZRBTXT;
+    CreatedBy = createdby;
+    CreatedOn = createdon;
+    LastModifiedBy = lastmodifiedby;
+    LocalLastChanged = LOCAL_LAST_CHANGED;
+    LastChanged = LAST_CHANGED;
+  }
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Behaviour Definition for ZOPS_C_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411 Initial Development            *
+//*  AMIREHA1   29-JAN-2026    1100285388 Added language key as key      *
+//*                                       field                          *
+//*----------------------------------------------------------------------*
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZOPS_C_LOGGR alias Loggr
+use etag
+
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Behaviour Definition for ZOPS_C_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411  Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388    Added language key as key   *
+//*                                          field                       *
+//*----------------------------------------------------------------------*
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZOPS_C_RAUBE alias storagecond
+use etag
+
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Access control for ZOPS_I_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411  Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388  Added language key as key     *
+//*                                        field                         *
+//*----------------------------------------------------------------------*
+@EndUserText.label: 'AC for interface view(ZDDE-00097969)'
+@MappingRole: true
+define role ZOPS_I_LOGGR {
+    grant
+        select
+            on ZOPS_I_LOGGR
+                      where ( ) = aspect pfcg_auth ( Z_CDS_VIEW , ACTVT = '03', DDLNAME = 
+                    'ZOPS_I_LOGGR' );  
+                       
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Access control for ZOPS_I_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   09-APR-2025   1100271411  Initial Development            *
+//*  AMIREHA1   29-JAN-2026   1100285388  Added language key as key      *
+//*                                       field                          *
+//*----------------------------------------------------------------------*
+@EndUserText.label: 'AC for ZOPS_I_RAUBE(ZDDE-00097969)'
+@MappingRole: true
+define role ZOPS_I_RAUBE {
+    grant
+        select
+            on
+                ZOPS_I_RAUBE                    
+                     where ( ) = aspect pfcg_auth ( Z_CDS_VIEW , ACTVT = '03', DDLNAME = 
+                    'ZOPS_I_RAUBE' );  
+                        
+}
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Access control for ZOPS_C_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411    Initial Development         *
+//*  AMIREHA1   29-JAN-2026    1100285388    Added language key as key   *
+//*                                          field                       *
+//*----------------------------------------------------------------------*
+@EndUserText.label: 'AC for consumption view(ZDDE-00097969)'
+@MappingRole: true
+define role ZOPS_C_LOGGR {
+    grant
+        select
+            on
+                ZOPS_C_LOGGR
+                    where
+                         inheriting conditions from entity ZOPS_I_LOGGR;
+                        
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Access control for ZOPS_C_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025    1100271411  Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388  Added language key as key     *
+//*                                        field                         *
+//*----------------------------------------------------------------------*
+@EndUserText.label: 'AC for ZOPS_C_RAUBE(ZDDE-00097969)'
+@MappingRole: true
+define role ZOPS_C_RAUBE {
+    grant
+        select
+            on
+                ZOPS_C_RAUBE
+                    where
+                        inheriting conditions from entity ZOPS_I_RAUBE;
+                        
+}
+
+
+                        
+
+CLASS lhc_storagecond DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+    METHODS:
+      get_global_authorizations FOR GLOBAL AUTHORIZATION
+        IMPORTING
+        REQUEST requested_authorizations FOR storagecond
+        RESULT result.
+
+    METHODS is_update_granted
+      RETURNING VALUE(update_granted) TYPE abap_bool.
+ENDCLASS.
+
+CLASS lhc_storagecond IMPLEMENTATION.
+  METHOD get_global_authorizations.
+*----------------------------------------------------------------------*
+* Development ID : ZDDE-00097969                                       *
+* Functional Spec: ZFSE-00097968                                       *
+* Description    : Method get_global_authorizations
+*----------------------------------------------------------------------*
+*  Change Log:                                                         *
+* ---------------------------------------------------------------------*
+*    Who       Date           CR            Text                       *
+*  SHASHJA1   13-MAY-2025    1100271411   Initial Development          *
+*----------------------------------------------------------------------*
+    DATA: lc_id TYPE symsgid VALUE 'ZFSE_00097845',
+          lc_1  TYPE symsgno VALUE '001'.
+    IF requested_authorizations-%update EQ if_abap_behv=>mk-on.
+      IF is_update_granted( ) = abap_true.
+        result-%update = if_abap_behv=>auth-allowed.
+      ELSE.
+        result-%update = if_abap_behv=>auth-unauthorized.
+        result-%action-edit = if_abap_behv=>fc-o-disabled.
+        APPEND VALUE #( %msg    = new_message( id      = lc_id
+                                               number  = lc_1
+                                               severity = if_abap_behv_message=>severity-error )
+                        %global = if_abap_behv=>mk-on
+                      ) TO reported-storagecond.
+      ENDIF.
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD is_update_granted.
+*----------------------------------------------------------------------*
+* Development ID : ZDDE-00097969                                       *
+* Functional Spec: ZFSE-00097968                                       *
+* Description    : Method is_update_granted
+*----------------------------------------------------------------------*
+*  Change Log:                                                         *
+* ---------------------------------------------------------------------*
+*    Who       Date           CR            Text                       *
+*  SHASHJA1   13-MAY-2025    1100271411   Initial Development          *
+*----------------------------------------------------------------------*
+* For Creation / Change Activity code "02" is being used.
+
+    AUTHORITY-CHECK OBJECT 'S_TABU_NAM'
+         ID 'ACTVT' FIELD '02'
+         ID 'TABLE' FIELD  'ZMD_RAUBE'.
+    update_granted = COND #( WHEN sy-subrc = 0 THEN abap_true ELSE abap_false ).
+  ENDMETHOD.
+ENDCLASS.
+
+CLASS lhc_loggr DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+    METHODS:
+      get_global_authorizations FOR GLOBAL AUTHORIZATION
+        IMPORTING
+        REQUEST requested_authorizations FOR loggr
+        RESULT result.
+
+    METHODS is_update_granted
+      RETURNING VALUE(update_granted) TYPE abap_bool.
+
+ENDCLASS.
+
+CLASS lhc_loggr IMPLEMENTATION.
+  METHOD get_global_authorizations.
+    DATA: lc_id TYPE symsgid VALUE 'ZFSE_00097968',
+          lc_1  TYPE symsgno VALUE '000'.
+    IF requested_authorizations-%update EQ if_abap_behv=>mk-on.
+      IF is_update_granted( ) = abap_true.
+        result-%update = if_abap_behv=>auth-allowed.
+      ELSE.
+        result-%update = if_abap_behv=>auth-unauthorized.
+        result-%action-edit = if_abap_behv=>fc-o-disabled.
+        APPEND VALUE #( %msg    = new_message( id      = lc_id
+                                               number  = lc_1
+                                               severity = if_abap_behv_message=>severity-error )
+                        %global = if_abap_behv=>mk-on
+                      ) TO reported-loggr.
+      ENDIF.
+    ENDIF.
+  ENDMETHOD.
+  METHOD is_update_granted.
+
+* For Creation / Change Activity code "02" is being used.
+
+    AUTHORITY-CHECK OBJECT 'S_TABU_NAM'
+         ID 'ACTVT' FIELD '02'
+         ID 'TABLE' FIELD  'ZMD_LOGGR'.
+    update_granted = COND #( WHEN sy-subrc = 0 THEN abap_true ELSE abap_false ).
+  ENDMETHOD.
+ENDCLASS.
+
+@EndUserText.label: 'Service definition forZOPS_C_LOGGR'
+define service ZOPS_SD_LOGGR {
+  expose ZOPS_C_LOGGR as Loggr;
+}
+
+@EndUserText.label: 'Service definition forZOPS_C_RAUBE'
+define service ZOPS_SD_RAUBE {
+  expose ZOPS_C_RAUBE as storagecond;
+}
+
+DATABASE TABLES AND DRAFT TABLES
+
+@EndUserText.label : 'Logistics handling Group Long description(ZDDE-00097969)'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zmd_loggr {
+  key mandt          : mandt not null;
+  key loggr          : loggr not null;
+  key spras          : spras not null;
+  zltext             : zltext;
+  createdby          : syuname;
+  createdon          : timestampl;
+  lastmodifiedby     : abp_lastchange_user;
+  local_last_changed : abp_locinst_lastchange_tstmpl;
+  last_changed       : abp_lastchange_tstmpl;
+
+}
+
+@EndUserText.label : 'Logistics HU table(ZDDE-00097969)'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zmd_loggr_d {
+  key mandt        : mandt not null;
+  key loggr        : loggr not null;
+  key spras        : spras not null;
+  zltext           : zltext;
+  createdby        : syuname;
+  createdon        : timestampl;
+  lastmodifiedby   : syuname;
+  locallastchanged : abp_locinst_lastchange_tstmpl;
+  lastchanged      : abp_lastchange_tstmpl;
+  "%admin"         : include sych_bdl_draft_admin_inc;
+
+}
+
+@EndUserText.label : 'Storage Conditions long text(ZDDE-00097969)'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zmd_raube {
+  key mandt          : mandt not null;
+  key raube          : raube not null;
+  @AbapCatalog.textLanguage
+  key spras          : spras not null;
+  zrbtxt             : zrbtxt;
+  createdby          : syuname;
+  createdon          : timestampl;
+  lastmodifiedby     : abp_lastchange_user;
+  local_last_changed : abp_locinst_lastchange_tstmpl;
+  last_changed       : abp_lastchange_tstmpl;
+
+}
+
+@EndUserText.label : 'Storage condition table(ZDDE-00097969)'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zmd_raube_d {
+  key mandt        : mandt not null;
+  key raube        : raube not null;
+  key spras        : spras not null;
+  zrbtxt           : zrbtxt;
+  createdby        : syuname;
+  createdon        : timestampl;
+  lastmodifiedby   : syuname;
+  locallastchanged : abp_locinst_lastchange_tstmpl;
+  lastchanged      : abp_lastchange_tstmpl;
+  "%admin"         : include sych_bdl_draft_admin_inc;
+
+}
