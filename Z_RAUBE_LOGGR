@@ -537,6 +537,149 @@ CLASS lhc_loggr IMPLEMENTATION.
   ENDMETHOD.
 ENDCLASS.
 
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Metadata Extension for ZOPS_I_LOGGR
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025                 Initial Development          *
+//*  AMIREHA1   29-JAN-2026    1100285388   Added language key as key    *
+//*                                         field                        *
+//*----------------------------------------------------------------------*
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Loggr',
+    typeNamePlural: 'Loggrs'
+  }
+}
+annotate view ZOPS_C_LOGGR with
+{
+  @UI.facet: [ {
+    id: 'idIdentification',
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'Loggr',
+    position: 10
+  } ]
+  @UI.lineItem: [ {
+    position: 10 ,
+    importance: #MEDIUM,
+    label: ''
+  } ]
+  @UI.identification: [ {
+    position: 10 ,
+    label: ''
+  } ]
+  Loggr;
+
+  @Consumption.filter:{ selectionType: #SINGLE,
+                        multipleSelections: true }
+  @UI.selectionField: [ { position: 20  } ]
+  @Consumption.valueHelpDefinition: [{entity.name: 'I_FHC_LANG_VH', entity.element: 'language'}]
+  @EndUserText.label: 'Language Key'
+  @UI:{ lineItem: [{ position: 20 ,label: 'Language Key'}],
+      identification: [{ position: 20, label: 'Language Key' }] }
+  spras;
+
+  @UI.lineItem: [ {
+    position: 30 ,
+    importance: #MEDIUM,
+    label: ''
+  } ]
+  @UI.identification: [ {
+    position: 30 ,
+    label: ''
+  } ]
+  Zltext;
+
+  @UI.hidden: true
+  Createdby;
+  @UI.hidden: true
+  Createdon;
+  @UI.hidden: true
+  Lastmodifiedby;
+  @UI.hidden: true
+  LocalLastChanged;
+  @UI.hidden: true
+  LastChanged;
+}
+
+
+//*----------------------------------------------------------------------*
+//* Development ID : ZDDE-00097969                                       *
+//* Functional Spec: ZFSE-00097968                                       *
+//* Description    : Metadata Extension for ZOPS_RAUBE
+//*----------------------------------------------------------------------*
+//*  Change Log:                                                         *
+//* ---------------------------------------------------------------------*
+//*    Who       Date           CR            Text                       *
+//*  SHASHJA1   13-MAY-2025   1100271411   Initial Development           *
+//*  AMIREHA1   29-JAN-2026    1100285388  Added language key as key     *
+//*                                        field                         *
+//*----------------------------------------------------------------------*
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'storagecond',
+    typeNamePlural: 'storageconds'
+  }
+}
+annotate view ZOPS_C_RAUBE with
+{
+  @UI.facet: [ {
+    id: 'idIdentification',
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'storagecond',
+    position: 10
+  } ]
+  @UI.lineItem: [ {
+    position: 10 ,
+
+    importance: #MEDIUM,
+    label: ''
+  } ]
+  @UI.identification: [ {
+    position: 10 ,
+    label: ''
+  } ]
+  Raube;
+  
+  @Consumption.filter:{ selectionType: #SINGLE,
+                        multipleSelections: true }
+  @UI.selectionField: [ { position: 20  } ]
+  @Consumption.valueHelpDefinition: [{entity.name: 'I_FHC_LANG_VH', entity.element: 'language'}]
+  @EndUserText.label: 'Language Key'
+  @UI:{ lineItem: [{ position: 20 ,label: 'Language Key'}],
+      identification: [{ position: 20, label: 'Language Key' }] }
+  spras;
+
+  @UI.lineItem: [ {
+    position: 30 ,
+    importance: #MEDIUM,
+    label: ''
+  } ]
+  @UI.identification: [ {
+    position: 30 ,
+    label: ''
+  } ]
+  Zrbtxt;
+
+  @UI.hidden: true
+  Createdby;
+  @UI.hidden: true
+  Createdon;
+  @UI.hidden: true
+  Lastmodifiedby;
+  @UI.hidden: true
+  LocalLastChanged;
+  @UI.hidden: true
+  LastChanged;
+}
+
 @EndUserText.label: 'Service definition forZOPS_C_LOGGR'
 define service ZOPS_SD_LOGGR {
   expose ZOPS_C_LOGGR as Loggr;
